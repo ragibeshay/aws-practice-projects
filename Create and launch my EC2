@@ -1,0 +1,59 @@
+# 🚀 Create & Launch My First AWS EC2 Instance
+
+This project documents the process of **creating and launching an Amazon EC2 instance** from scratch using the **AWS Management Console**.  
+It’s designed for beginners who want a clear, step‑by‑step guide to get their first cloud server running.
+
+---
+
+## 📋 Project Overview
+Amazon EC2 (Elastic Compute Cloud) is a web service that provides secure, resizable compute capacity in the cloud.  
+In this project, we:
+- Created a **key pair** for secure SSH access.
+- Configured a **security group** to control inbound traffic.
+- Launched a **t2.micro** instance running **Amazon Linux 2023**.
+- Connected to the instance via **EC2 Instance Connect** and SSH.
+
+---
+
+## 🛠️ Prerequisites
+Before starting, ensure you have:
+- An active [AWS account](https://aws.amazon.com/).
+- Basic familiarity with the AWS Management Console.
+- A stable internet connection.
+- (Optional) An SSH client installed on your local machine.
+
+---
+
+## 📌 Step‑by‑Step Instructions
+
+### 1. **Set Your AWS Region**
+- In the AWS Console, choose your preferred region (e.g., `US West (Oregon)`).
+
+### 2. **Create a Key Pair**
+- Go to **EC2 → Key Pairs → Create key pair**.
+- Choose **ED25519** (or RSA 2048) and `.pem` format.
+- Download and store the key securely.
+
+### 3. **Create a Security Group**
+- Go to **EC2 → Security Groups → Create security group**.
+- Add an inbound rule for **SSH (port 22)** from **My IP**.
+- Save the security group.
+
+### 4. **Launch the EC2 Instance**
+- Go to **EC2 → Instances → Launch instances**.
+- Name: `MyFirstEC2`.
+- AMI: **Amazon Linux 2023** (Free tier eligible).
+- Instance type: `t2.micro`.
+- Key pair: Select the one you created.
+- Network: Default VPC, public subnet, auto‑assign public IP enabled.
+- Security group: Select the one you created.
+- Storage: Default 8 GB gp3.
+- Click **Launch instance**.
+
+### 5. **Connect to the Instance**
+- Wait until **Status checks** show `2/2 passed`.
+- Select the instance → **Connect**.
+- Use **EC2 Instance Connect** (browser terminal) or SSH:
+  ```bash
+  chmod 400 my-key.pem
+  ssh -i my-key.pem ec2-user@<PUBLIC_IP>
